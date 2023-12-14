@@ -4,7 +4,17 @@ import React, { useState } from "react";
 function Home(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
+    function inputEmail(e){
+        let input = e.target.value
+        setEmail(input)
+    }
+
+    function inputPassword(e) {
+      let input = e.target.value
+      setPassword(input)
+    }
+
 return (
   <div className="container">
     <form className="form">
