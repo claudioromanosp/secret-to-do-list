@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { auth } from "../../config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
 
 function Register(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault();
         if(email !== '' && password !== ""){
-            console.log('teste')
+          await createUserWithEmailAndPassword(auth, email, password)
+          .then(()=>{
+            console.log('cadastrou')
+            navigate("/",{replace: true })
+          })
+          .catch((error)=>{ console.log("error:" + error)})
         }else{
-            console.log("preencha");
+            console.log("não cadastrou");
         }
     }
 
@@ -20,10 +29,13 @@ function Register(){
         let input = e.target.value;
         setEmail(input)
     }
+
     function inputPassword(e) {
       let input = e.target.value;
       setPassword(input);
     }
+
+
 return (
   <div className="container">
     <h1>Cadastre-se</h1>
