@@ -9,8 +9,7 @@ function Home(){
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
-   
+  
     function inputEmail(e){
         let input = e.target.value
         setEmail(input)
@@ -24,7 +23,6 @@ function Home(){
     async function handleLogin(e){
       e.preventDefault();
       if(email !== "" && password !== ""){
-        console.log("testee")
         await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           navigate("/admin", {replace: true})
