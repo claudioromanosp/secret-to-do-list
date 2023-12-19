@@ -6,3 +6,9 @@
 body{
     background-color: #0d0a0a;
 }
+form{
+    margin-bottom: 20px;
+}
+.button-link{
+    color: #fff;
+}
