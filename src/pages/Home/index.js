@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import './styles.css'
+import './styles.css';
+import { auth } from "../../config"
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Home(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+
+   
     function inputEmail(e){
         let input = e.target.value
         setEmail(input)
@@ -16,10 +20,22 @@ function Home(){
       setPassword(input)
     }
 
+    async function handleLogin(e){
+      e.preventDefault();
+      if(email !== "" && password !== ""){
+        console.log("testee")
+        await signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+        })
+        .catch((error) => console.log("error: " + error))
+      }else{
+      }
+    }
+
 return (
   <div className="container">
     <h1>Secret To Do List</h1>
-    <form className="form">
+    <form className="form" onSubmit={handleLogin}>
       <input
         type="text"
         name="email"
