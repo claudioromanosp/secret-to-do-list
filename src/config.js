@@ -8,11 +8,12 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: "curso-291e9.firebaseapp.com",
-  projectId: "curso-291e9",
-  storageBucket: "curso-291e9.appspot.com",
-  messagingSenderId: "13917783300",
-  appId: "1:13917783300:web:47710213006639f496fc51",
+  authDomain: "secret-to-do-list.firebaseapp.com",
+  projectId: "secret-to-do-list",
+  storageBucket: "secret-to-do-list.appspot.com",
+  messagingSenderId: "971529408712",
+  appId: "1:971529408712:web:7806ec00045e6158ac55fd",
+  measurementId: "G-CXCVDQ1MN7",
 };
 
 // Initialize Firebase
@@ -22,3 +23,5 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 export { db, auth };
+
+
