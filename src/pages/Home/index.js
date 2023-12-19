@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './styles.css';
 import { auth } from "../../config"
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 function Home(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
 
    
@@ -26,9 +27,10 @@ function Home(){
         console.log("testee")
         await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
+          navigate("/admin", {replace: true})
         })
         .catch((error) => console.log("error: " + error))
-      }else{
+      }else{  
       }
     }
 
