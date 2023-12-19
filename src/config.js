@@ -2,6 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import "./.env";
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,6 +18,7 @@ const firebaseConfig = {
   appId: "1:971529408712:web:7806ec00045e6158ac55fd",
   measurementId: "G-CXCVDQ1MN7",
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
