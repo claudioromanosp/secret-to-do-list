@@ -1,48 +1,65 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import './styles.css';
-import { auth } from "../../config";
+import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 function Admin(){
-  const [task, setTask] = useState("")
+  const [taskInput, setTaskInput] = useState("")
+  const [user, setUser] = useState({})
 
-function inputTask(e){
-  e.preventDefault()
-    let input = e.target.value
-    setTask(input)   
-  }
+  useEffect(() => {
+    async function loadTasks() {
+      const userDetail = localStorage.getItem("@detailUser")
+      setUser(JSON.parse(userDetail))
+    }
+    loadTasks();
+  },[])
 
-  function handleRegister(e) {
+
+  async function handleRegister(e) {
     e.preventDefault();
-    let input = e.target.value;
-    setTask(input);
+
+    if(taskInput === ""){
+      alert("Escreva sua tarefa !")
+      return;
+    }
+    await addDoc(collection(db, "tasks"), {
+      task: taskInput,
+      created: new Date(),
+      userUid: user.uid
+    })
+      .then(() => {
+        console.log("tarefa criada");
+        setTaskInput("")
+      })
+      .catch((error) => {
+        console.log("erro: " + error);
+      });
   }
 
   async function handleLogOut(){
     await signOut(auth)
   }
 
-
   return (
     <div className="container">
       <h1>Minhas Tarefas</h1>
-
-
       <form className="form" onSubmit={handleRegister}>
         <textarea
           placeholder="Digite sua tarefa ..."
-          value={inputTask}
-          onChange={inputTask}
+          value={taskInput}
+          onChange={(e) => {
+            setTaskInput(e.target.value);
+          }}
         ></textarea>
         <button>Criar Tarefa</button>
       </form>
+
       <article>
-        <button className="btn btn-delete">Concluir</button>
-        <button
-        className="btn btn-logout"
-        onClick={handleLogOut}
-        >Sair</button>
+        <button className="btn btn-logout" onClick={handleLogOut}>
+          Sair
+        </button>
       </article>
     </div>
   );
