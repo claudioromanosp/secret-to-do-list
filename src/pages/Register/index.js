@@ -1,27 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { auth } from "../../config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import {  createUserWithEmailAndPassword } from "firebase/auth";
 
 
 function Register(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-
-    async function handleRegister(e){
-        e.preventDefault();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  
+  async function handleRegister(e){
+    e.preventDefault();
+    
         if(email !== '' && password !== ""){
           await createUserWithEmailAndPassword(auth, email, password)
           .then(()=>{
-            console.log('cadastrou')
-            navigate("/",{replace: true })
+            navigate("/admin",{replace: true })
           })
           .catch((error)=>{ console.log("error:" + error)})
         }else{
-            console.log("não cadastrou");
         }
     }
 
