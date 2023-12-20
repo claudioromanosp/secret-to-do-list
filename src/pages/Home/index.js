@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './styles.css';
+import Button from "../../components/Button/Button";
 import { auth } from "../../config"
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -34,6 +35,7 @@ function Home(){
 return (
   <div className="container">
     <h1>Secret To Do List</h1>
+
     <form className="form" onSubmit={handleLogin}>
       <input
         type="text"
@@ -49,7 +51,7 @@ return (
         placeholder="Senha"
         onChange={inputPassword}
       />
-      <button>Login</button>
+      <Button label="Login" />
     </form>
     <Link className="button-link" to="/register">
       Não possui uma conta? Cadastre-se aqui.

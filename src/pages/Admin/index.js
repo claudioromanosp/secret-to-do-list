@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
+import Button from "../../components/Button/Button";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
@@ -44,6 +45,11 @@ function Admin(){
 
   return (
     <div className="container">
+      <Button
+        className="btn btn-logout"
+         label="Sair"
+        onClick={handleLogOut}
+      />
       <h1>Minhas Tarefas</h1>
       <form className="form" onSubmit={handleRegister}>
         <textarea
@@ -53,14 +59,9 @@ function Admin(){
             setTaskInput(e.target.value);
           }}
         ></textarea>
-        <button>Criar Tarefa</button>
+        <Button label="Criar Tarefa" />
       </form>
 
-      <article>
-        <button className="btn btn-logout" onClick={handleLogOut}>
-          Sair
-        </button>
-      </article>
     </div>
   );
 }

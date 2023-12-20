@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import { auth } from "../../config";
 import {  createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -37,23 +38,25 @@ return (
   <div className="container">
     <h1>Cadastre-se</h1>
     <form className="form" onSubmit={handleRegister}>
-      <input 
-        type="text" 
-        name="email" 
-        value={email} 
+      <input
+        type="text"
+        name="email"
+        value={email}
         placeholder="E-mail"
-        onChange={inputEmail} 
+        onChange={inputEmail}
       />
-      <input 
-        type="password" 
-        name="password" 
+      <input
+        type="password"
+        name="password"
         value={password}
         placeholder="Senha"
         onChange={inputPassword}
       />
-      <button>Cadastrar</button>
+      <Button label="Cadastrar" />
     </form>
-    <Link className="button-link" to="/">Já possui uma conta? Faça o login aqui.</Link>
+    <Link className="button-link" to="/">
+      Já possui uma conta? Faça o login aqui.
+    </Link>
   </div>
 );
 }

@@ -27,7 +27,11 @@ function Private({ children}){
         checkLogin();
     },[])
     if(loading){
-        return(<h1>loading ...</h1>)
+        return (
+          <div className="container">
+            <h1>Loading ...</h1>
+          </div>
+        );
     }
     if (!signed) {
       return <Navigate to="/" />;
