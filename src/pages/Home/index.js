@@ -9,7 +9,6 @@ function Home(){
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-  
     function inputEmail(e){
         let input = e.target.value
         setEmail(input)
