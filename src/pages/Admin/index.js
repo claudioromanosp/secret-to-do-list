@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './styles.css';
+import { auth } from "../../config";
+import { signOut } from "firebase/auth";
 
 function Admin(){
   const [task, setTask] = useState("")
@@ -17,6 +19,11 @@ function inputTask(e){
     setTask(input);
   }
 
+  async function handleLogOut(){
+    await signOut(auth)
+  }
+
+
   return (
     <div className="container">
       <h1>Minhas Tarefas</h1>
@@ -30,7 +37,13 @@ function inputTask(e){
         ></textarea>
         <button>Criar Tarefa</button>
       </form>
-
+      <article>
+        <button className="btn btn-delete">Concluir</button>
+        <button
+        className="btn btn-logout"
+        onClick={handleLogOut}
+        >Sair</button>
+      </article>
     </div>
   );
 }
