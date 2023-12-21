@@ -1,3 +1,16 @@
+.container-admin{
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1{
+    text-align: center;
+}
+.form{
+    margin: 0 auto 40px;
+}
+
 .btn-logout{
     position: absolute;
     top: 10px;
@@ -6,3 +19,25 @@
 .btn-red{
     background-color: red;
 }   
+
+ul.list-tasks{
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+hr{
+    border: none;
+    border-bottom: 1px solid #38387f;
+
+}
+ul.list-tasks li{
+    padding: 10px 5px 5px;
+    list-style-type: none;
+}
+
+ul.list-tasks li button{
+    margin: 0 5px 20px;
+}
+ul.list-tasks li span{
+    color: #38387f;
+}
