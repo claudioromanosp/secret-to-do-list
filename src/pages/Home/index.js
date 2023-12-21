@@ -9,6 +9,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 function Home(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [feedback, setFeedback] = useState("");
     const navigate = useNavigate();
 
     function inputEmail(e){
@@ -21,17 +22,20 @@ function Home(){
       setPassword(input)
     }
 
-    async function handleLogin(e){
-      e.preventDefault();
-      if(email !== "" && password !== ""){
-        await signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          navigate("/admin", {replace: true})
-        })
-        .catch((error) => console.log("error: " + error))
-      }else{  
-      }
-    }
+   async function handleLogin(e) {
+     e.preventDefault();
+     if (email.trim() !== "" && password.trim() !== "") {
+       try {
+         await signInWithEmailAndPassword(auth, email, password);
+         navigate("/admin", { replace: true });
+       } catch (error) {
+         console.error("Error:", error);
+         setFeedback("Insira um e-mail e senha válidos")
+       }
+     } else {
+      setFeedback("E-mail e/ou senha inválidos");
+     }
+   }
 
 return (
   <div className="container">
@@ -53,6 +57,7 @@ return (
         placeholder="Senha"
         onChange={inputPassword}
       />
+      <p className="feedback">{feedback}</p>
 
       <Button label="Login" className="btn btn-large" />
     </form>
