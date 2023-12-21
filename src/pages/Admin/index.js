@@ -18,6 +18,7 @@ function Admin(){
   const [taskInput, setTaskInput] = useState("")
   const [user, setUser] = useState({})
   const [todo, setTodo] = useState([])
+  const [feedback, setFeedback] = useState("Escreva a nova tarefa:")
 
   useEffect(() => {
     // get user data from localStorage
@@ -30,7 +31,7 @@ function Admin(){
       const q = query(
         collection(db, "tasks"),
         orderBy("created", "desc"),
-        where("userUid", "==", user.uid)
+        where("userUid", "==", data?.uid)
       );
       const unsub = onSnapshot(q, (querySnapshot) => {
         let list = [];
@@ -53,7 +54,7 @@ function Admin(){
     e.preventDefault();
 
     if(taskInput === ""){
-      alert("Escreva sua tarefa !")
+      setFeedback("Escreva sua tarefa !");
       return;
     }
      try {
@@ -62,10 +63,11 @@ function Admin(){
          created: new Date(),
          userUid: user.uid,
        });
-       console.log("tarefa criada");
+       setFeedback("Escreva a nova tarefa:");
        setTaskInput("");
      } catch (error) {
-       console.error("Erro ao criar tarefa:", error);
+      setFeedback("Não consegui criar a tarefa :(");
+      console.error("Erro ao criar tarefa:", error);
      }
   }
 
@@ -77,6 +79,7 @@ function Admin(){
     try {
        await deleteDoc(doc(db, "tasks", id));
     } catch (error) {
+      setFeedback("Não consegui excluir a tarefa :(");
       console.error("Erro ao deletar tarefa:", error);
     }
   }
@@ -90,8 +93,9 @@ function Admin(){
       />
       <h1>Minhas Tarefas</h1>
       <form className="form" onSubmit={handleRegister}>
+        <p className="feedback">{feedback}</p>
         <textarea
-          placeholder="Digite sua tarefa ..."
+          placeholder="Escreva aqui ..."
           value={taskInput}
           onChange={(e) => {
             setTaskInput(e.target.value);
@@ -99,6 +103,7 @@ function Admin(){
         ></textarea>
         <Button label="Criar Tarefa" className="btn btn-large" />
       </form>
+
 
       {todo.map((item) => {
         return (

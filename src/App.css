@@ -69,6 +69,11 @@ button:hover{
     font-weight: bold;
     margin-bottom: 5px;
 }
+.feedback{
+    font-weight: bold;
+    color: #f2f203;
+    margin-bottom: 10px;
+}
 
 @media(min-width: 992px){
     h1{
