@@ -20,6 +20,7 @@ function Admin(){
   const [user, setUser] = useState({})
   const [todo, setTodo] = useState([])
   const [feedback, setFeedback] = useState("Escreva a nova tarefa:")
+  const [label, setLabel] = useState("Criar uma nova tarefa");
 
   useEffect(() => {
     // get user data from localStorage
@@ -66,6 +67,7 @@ function Admin(){
        });
        setFeedback("Escreva a nova tarefa:");
        setTaskInput("");
+       setLabel("Criar uma nova tarefa");
      } catch (error) {
       setFeedback("Não consegui criar a tarefa :(");
       console.error("Erro ao criar tarefa:", error);
@@ -85,6 +87,11 @@ function Admin(){
     }
   }
 
+  function handleEdit(item) {
+    setTaskInput(item.task)
+    setLabel("Salvar")
+  }
+
   return (
     <div className="container-admin">
       <Button
@@ -102,7 +109,7 @@ function Admin(){
             setTaskInput(e.target.value);
           }}
         ></textarea>
-        <Button label="Criar Tarefa" className="btn btn-large" />
+        <Button label={label} className="btn btn-large" />
       </form>
 
 
@@ -116,7 +123,7 @@ function Admin(){
                 </p>
               </li>
               <li>
-                <Button label="Editar" className="btn btn-small" />
+                <Button label="Editar" className="btn btn-small" onClick={() => handleEdit(item)} />
                 <span> | </span>{" "}
                 <Button
                   label="Excluir"
