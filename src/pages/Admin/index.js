@@ -3,19 +3,43 @@ import './styles.css';
 import Button from "../../components/Button/Button";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, query, orderBy, where } from "firebase/firestore";
 
 function Admin(){
   const [taskInput, setTaskInput] = useState("")
   const [user, setUser] = useState({})
+  const [tarefas, setTarefas] = useState([])
 
   useEffect(() => {
-    async function loadTasks() {
-      const userDetail = localStorage.getItem("@detailUser")
-      setUser(JSON.parse(userDetail))
+    // get user data from localStorage
+    const userDetail = localStorage.getItem("@detailUser");
+    setUser(JSON.parse(userDetail));
+
+    if (userDetail) {
+      const data = JSON.parse(userDetail);
+
+      const q = query(
+        collection(db, "tasks"),
+        orderBy("created", "desc"),
+        where("userUid", "==", data?.uid)
+      );
+      const unsub = onSnapshot(q, (querySnapshot) => {
+        let list = [];
+        querySnapshot.forEach((doc) => {
+          list.push({
+            userUid: doc.data().userUid,
+            task: doc.data().task,
+          });
+        });
+        setTarefas(list);
+        console.log(list.join("| "));
+      });
+
+      // Clearing the subscription when the component is unmounted or when the condition changes
+      return () => unsub();
     }
-    loadTasks();
-  },[])
+  }, []);
+
 
 
   async function handleRegister(e) {
@@ -30,13 +54,17 @@ function Admin(){
       created: new Date(),
       userUid: user.uid
     })
-      .then(() => {
-        console.log("tarefa criada");
-        setTaskInput("")
-      })
-      .catch((error) => {
-        console.log("erro: " + error);
-      });
+     try {
+       await addDoc(collection(db, "tasks"), {
+         task: taskInput,
+         created: new Date(),
+         userUid: user.uid,
+       });
+       console.log("tarefa criada");
+       setTaskInput("");
+     } catch (error) {
+       console.error("Erro ao criar tarefa:", error);
+     }
   }
 
   async function handleLogOut(){
@@ -47,9 +75,9 @@ function Admin(){
     <div className="container">
       <Button
         className="btn btn-logout"
-         label="Sair"
+        label="Sair"
         onClick={handleLogOut}
-      />
+        />
       <h1>Minhas Tarefas</h1>
       <form className="form" onSubmit={handleRegister}>
         <textarea
