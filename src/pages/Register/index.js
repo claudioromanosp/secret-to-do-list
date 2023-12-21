@@ -52,7 +52,7 @@ return (
         placeholder="Senha"
         onChange={inputPassword}
       />
-      <Button label="Cadastrar" />
+      <Button label="Cadastrar" className="btn btn-large" />
     </form>
     <Link className="button-link" to="/">
       Já possui uma conta? Faça o login aqui.

@@ -51,7 +51,7 @@ return (
         placeholder="Senha"
         onChange={inputPassword}
       />
-      <Button label="Login" />
+      <Button label="Login" className="btn btn-large" />
     </form>
     <Link className="button-link" to="/register">
       Não possui uma conta? Cadastre-se aqui.

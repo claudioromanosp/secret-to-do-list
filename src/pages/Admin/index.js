@@ -8,7 +8,7 @@ import { addDoc, collection, onSnapshot, query, orderBy, where } from "firebase/
 function Admin(){
   const [taskInput, setTaskInput] = useState("")
   const [user, setUser] = useState({})
-  const [tarefas, setTarefas] = useState([])
+  const [todo, setTodo] = useState([])
 
   useEffect(() => {
     // get user data from localStorage
@@ -31,7 +31,7 @@ function Admin(){
             task: doc.data().task,
           });
         });
-        setTarefas(list);
+        setTodo(list);
         console.log(list.join("| "));
       });
 
@@ -74,11 +74,27 @@ function Admin(){
   return (
     <div className="container">
       <Button
-        className="btn btn-logout"
+        className="btn btn-logout btn-red"
         label="Sair"
         onClick={handleLogOut}
         />
       <h1>Minhas Tarefas</h1>
+
+      {
+        todo.map((item) => {
+          return (
+            <>
+              <ul>
+                <li>{item.task}</li>
+                <li>
+                  <Button label="concluído" className="btn" />
+                  <Button label="excluir" className="btn btn-red" />
+                </li>
+              </ul>
+            </>
+          );
+        })
+      }
       <form className="form" onSubmit={handleRegister}>
         <textarea
           placeholder="Digite sua tarefa ..."
@@ -87,7 +103,7 @@ function Admin(){
             setTaskInput(e.target.value);
           }}
         ></textarea>
-        <Button label="Criar Tarefa" />
+        <Button label="Criar Tarefa" className="btn btn-large" />
       </form>
 
     </div>
