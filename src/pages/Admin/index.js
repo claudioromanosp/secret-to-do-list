@@ -77,24 +77,8 @@ function Admin(){
         className="btn btn-logout btn-red"
         label="Sair"
         onClick={handleLogOut}
-        />
+      />
       <h1>Minhas Tarefas</h1>
-
-      {
-        todo.map((item) => {
-          return (
-            <>
-              <ul>
-                <li>{item.task}</li>
-                <li>
-                  <Button label="concluído" className="btn" />
-                  <Button label="excluir" className="btn btn-red" />
-                </li>
-              </ul>
-            </>
-          );
-        })
-      }
       <form className="form" onSubmit={handleRegister}>
         <textarea
           placeholder="Digite sua tarefa ..."
@@ -106,6 +90,18 @@ function Admin(){
         <Button label="Criar Tarefa" className="btn btn-large" />
       </form>
 
+      {todo.map((item) => {
+        return (
+          <>
+            <ul className="list-tasks">
+              <li>{item.task}</li>
+              <li>
+                <Button label="Editar" className="btn" /> | <Button label="Excluir" className="btn btn-red" />
+              </li>
+            </ul>
+          </>
+        );
+      })}
     </div>
   );
 }
