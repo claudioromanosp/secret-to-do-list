@@ -3,7 +3,16 @@ import './styles.css';
 import Button from "../../components/Button/Button";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
-import { addDoc, collection, onSnapshot, query, orderBy, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  where,
+  deleteDoc,
+  doc
+} from "firebase/firestore";
 
 function Admin(){
   const [taskInput, setTaskInput] = useState("")
@@ -21,26 +30,24 @@ function Admin(){
       const q = query(
         collection(db, "tasks"),
         orderBy("created", "desc"),
-        where("userUid", "==", data?.uid)
+        where("userUid", "==", user.uid)
       );
       const unsub = onSnapshot(q, (querySnapshot) => {
         let list = [];
         querySnapshot.forEach((doc) => {
           list.push({
+            id: doc.id,
             userUid: doc.data().userUid,
             task: doc.data().task,
           });
         });
         setTodo(list);
-        console.log(list.join("| "));
       });
 
       // Clearing the subscription when the component is unmounted or when the condition changes
       return () => unsub();
     }
   }, []);
-
-
 
   async function handleRegister(e) {
     e.preventDefault();
@@ -49,11 +56,6 @@ function Admin(){
       alert("Escreva sua tarefa !")
       return;
     }
-    await addDoc(collection(db, "tasks"), {
-      task: taskInput,
-      created: new Date(),
-      userUid: user.uid
-    })
      try {
        await addDoc(collection(db, "tasks"), {
          task: taskInput,
@@ -71,8 +73,16 @@ function Admin(){
     await signOut(auth)
   }
 
+  async function handleDelete(id) {
+    try {
+       await deleteDoc(doc(db, "tasks", id));
+    } catch (error) {
+      console.error("Erro ao deletar tarefa:", error);
+    }
+  }
+
   return (
-    <div className="container">
+    <div className="container-admin">
       <Button
         className="btn btn-logout btn-red"
         label="Sair"
@@ -94,9 +104,18 @@ function Admin(){
         return (
           <>
             <ul className="list-tasks">
-              <li>{item.task}</li>
               <li>
-                <Button label="Editar" className="btn" /> | <Button label="Excluir" className="btn btn-red" />
+                <p>{item.task}</p>
+              </li>
+              <li>
+                <Button label="Editar" className="btn btn-small" />
+                <span> | </span>{" "}
+                <Button
+                  label="Excluir"
+                  className="btn btn-red btn-small"
+                  onClick={() => handleDelete(item.id)}
+                />
+                <hr />
               </li>
             </ul>
           </>
