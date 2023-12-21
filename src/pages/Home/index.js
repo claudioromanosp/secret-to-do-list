@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './styles.css';
-import Button from "../../components/Button/Button";
+import Button from "../../components/Button/";
+import Input from "../../components/Input/";
 import { auth } from "../../config"
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -37,20 +38,22 @@ return (
     <h1>Secret To Do List</h1>
 
     <form className="form" onSubmit={handleLogin}>
-      <input
+      <Input
         type="text"
         name="email"
         value={email}
         placeholder="E-mail"
         onChange={inputEmail}
       />
-      <input
+
+      <Input
         type="password"
         name="password"
         value={password}
         placeholder="Senha"
         onChange={inputPassword}
       />
+
       <Button label="Login" className="btn btn-large" />
     </form>
     <Link className="button-link" to="/register">

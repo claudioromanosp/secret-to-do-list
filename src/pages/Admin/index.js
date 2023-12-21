@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
-import Button from "../../components/Button/Button";
+import Button from "../../components/Button/";
+import Input from "../../components/Input/";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
 import {
@@ -109,8 +110,10 @@ function Admin(){
         return (
           <>
             <ul className="list-tasks">
-              <li>
-                <p>{item.task}</p>
+              <li key={item.id}>
+                <p>
+                  {item.task}
+                </p>
               </li>
               <li>
                 <Button label="Editar" className="btn btn-small" />
