@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './styles.css';
 import Button from "../../components/Button/";
 import Input from "../../components/Input/";
+import { FaEdit, FaRegTrashAlt, FaSignOutAlt } from "react-icons/fa";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
 import {
@@ -106,7 +107,7 @@ function Admin(){
        await updateDoc(docRef, {
          task: taskInput,
        });
-       setLabel("Salvar")
+       setLabel("Criar uma nova tarefa");
        setTaskInput("");
        setEdit({});
      } catch (error) {
@@ -116,9 +117,10 @@ function Admin(){
 
   return (
     <div className="container-admin">
+
       <Button
         className="btn btn-logout btn-red"
-        label="Sair"
+        label={<FaSignOutAlt />}
         onClick={handleLogOut}
       />
       <h1>Minhas Tarefas</h1>
@@ -139,19 +141,18 @@ function Admin(){
           <>
             <ul className="list-tasks">
               <li key={item.id}>
-                <p>
-                  {item.task}
-                </p>
+                <p>{item.task}</p>
               </li>
               <li>
                 <Button
-                  label="Editar"
-                  className="btn btn-small"
+                  label={<FaEdit />}
+                  className="btn btn-small btn-first"
                   onClick={() => editTask(item)}
                 />
-                <span> | </span>{" "}
+                
                 <Button
                   label="Excluir"
+                  label={<FaRegTrashAlt />}
                   className="btn btn-red btn-small"
                   onClick={() => handleDelete(item.id)}
                 />
