@@ -85,6 +85,9 @@ button:hover{
     margin: 5px 0;
     font-size: 14px;
 }
+textarea {
+    min-height: 120px;
+}
 
 @media(min-width: 779px) {
     .form-login{
