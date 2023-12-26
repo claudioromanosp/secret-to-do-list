@@ -3,14 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import './styles.css';
 import Button from "../../components/Button/";
 import Input from "../../components/Input/";
-import { auth } from "../../config"
-import { signInWithEmailAndPassword } from "firebase/auth";
+import GoogleButton from "react-google-button";
+import { auth, provider } from "../../config"
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 function Home(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [feedback, setFeedback] = useState("");
     const navigate = useNavigate();
+
+    function loginGoogle() {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          navigate("/admin", { replace: true });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+        });
+    }  
 
     function inputEmail(e){
         let input = e.target.value
@@ -61,6 +82,8 @@ return (
 
       <Button label="Login" className="btn btn-large" />
     </form>
+    <h2 className="subtitle-login">ou se preferir:</h2>
+    <GoogleButton type="dark" label="Login com Google" className="google-login" onClick={loginGoogle} />
     <Link className="button-link" to="/register">
       Não possui uma conta? Cadastre-se aqui.
     </Link>
