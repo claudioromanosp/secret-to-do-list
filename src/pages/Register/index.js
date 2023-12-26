@@ -9,18 +9,27 @@ import {  createUserWithEmailAndPassword } from "firebase/auth";
 function Register(){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [feedback, setFeedback] = useState("");
   const navigate = useNavigate();
   
   async function handleRegister(e){
     e.preventDefault();
-    
-        if(email !== '' && password !== ""){
-          await createUserWithEmailAndPassword(auth, email, password)
-          .then(()=>{
-            navigate("/admin",{replace: true })
-          })
-          .catch((error)=>{ console.log("error:" + error)})
-        }else{
+        if (email !== "" && password !== "") {
+          try {
+            await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            )
+            navigate("/admin", { replace: true });
+          } catch (error) {
+            console.error("Error:", error);
+            setFeedback("Digite seu e-mail e senha");
+          }
+        } else if(email !== "" && password < 6) {
+          setFeedback("Senha com no mínimo 6 caracteres");
+        }else {
+          setFeedback("Digite seu e-mail e senha");
         }
     }
 
@@ -38,7 +47,7 @@ function Register(){
 return (
   <div className="container">
     <h1>Cadastre-se</h1>
-    <form className="form" onSubmit={handleRegister}>
+    <form className="form form-login" onSubmit={handleRegister}>
       <Input
         type="text"
         name="email"
@@ -53,7 +62,7 @@ return (
         placeholder="Senha"
         onChange={inputPassword}
       />
-
+      <p className="feedback">{feedback}</p>
       <Button label="Cadastrar" className="btn btn-large" />
     </form>
     <Link className="button-link" to="/">

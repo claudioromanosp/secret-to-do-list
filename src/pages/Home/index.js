@@ -24,16 +24,16 @@ function Home(){
 
    async function handleLogin(e) {
      e.preventDefault();
-     if (email.trim() !== "" && password.trim() !== "") {
+     if (email !== "" && password !== "") {
        try {
          await signInWithEmailAndPassword(auth, email, password);
          navigate("/admin", { replace: true });
        } catch (error) {
          console.error("Error:", error);
-         setFeedback("Insira um e-mail e senha válidos")
+         setFeedback("Digite seu e-mail e senha")
        }
      } else {
-      setFeedback("E-mail e/ou senha inválidos");
+      setFeedback("Digite seu e-mail e senha")
      }
    }
 
@@ -41,7 +41,7 @@ return (
   <div className="container">
     <h1>Secret To Do List</h1>
 
-    <form className="form" onSubmit={handleLogin}>
+    <form className="form form-login" onSubmit={handleLogin}>
       <Input
         type="text"
         name="email"

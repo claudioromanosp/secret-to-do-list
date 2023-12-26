@@ -100,7 +100,7 @@ function Admin(){
         onClick={handleLogOut}
       />
       <h1>Minhas Tarefas</h1>
-      <form className="form" onSubmit={handleRegister}>
+      <form className="form form-admin" onSubmit={handleRegister}>
         <p className="feedback">{feedback}</p>
         <textarea
           placeholder="Escreva aqui ..."
@@ -130,7 +130,6 @@ function Admin(){
                   className="btn btn-red btn-small"
                   onClick={() => handleDelete(item.id)}
                 />
-                <hr />
               </li>
             </ul>
           </>
