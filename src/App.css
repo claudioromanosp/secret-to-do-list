@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #060525;
+    background-color: #31285f;
     color: #fff;
 }
 form{
@@ -44,7 +44,7 @@ h1{
 button{
     border: 0;
     border-radius: 4px;
-    background-color: #3366ff;
+    background-color: #7359f8;
     color: #fff;
     font-size:18px;
     margin-top: 5px;
