@@ -16,13 +16,15 @@
     background-color: #cc3953;
 }   
 ul.list-tasks{
-    padding: 20px 10px;
+    padding: 20px 5px;
     margin: 0;
     width: auto;
     background-color: #1a123d;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
     border-bottom: 1px solid #38387f;
 }
 ul.list-tasks li{
@@ -30,16 +32,24 @@ ul.list-tasks li{
     list-style-type: none;
 }
 ul.list-tasks li:first-child{
-    width: 75%;
+    width: 100%;
     padding-left: 10px;
-    padding-right: 5px;
+    padding-right: 10px;
 }
 ul.list-tasks li button.btn-first{
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 @media(min-width: 779px){
+    ul.list-tasks{
+        padding-right: 20px;
+    }
     ul.list-tasks li:first-child{
-    padding-left: 20px;
-}
+        width: 80%;
+        padding-left: 20px;
+    }
+    ul.list-tasks li button.btn-first{
+        margin-bottom: 0px;
+        margin-right: 20px;
+    }
 }
