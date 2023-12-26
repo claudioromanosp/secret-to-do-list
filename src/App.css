@@ -33,6 +33,8 @@ h1{
     flex-direction: column;
     width: 100%;
     max-width: 600px;
+    background: #19123d;
+    padding: 20px;
 }
 .form input,.form textarea{
     border: 0;
@@ -41,6 +43,12 @@ h1{
     margin-bottom: 15px;
     border-radius: 4px;
     padding: 10px;
+}
+.form-login input{
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
 }
 button{
     border: 0;
@@ -73,12 +81,19 @@ button:hover{
 .feedback{
     font-weight: bold;
     color: #f2f203;
-    margin-bottom: 10px;
+    height: 17px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+@media(min-width: 779px) {
+    .form-login{
+        padding: 40px;
+    }
 }
 
 @media(min-width: 992px){
     h1{
         font-size: 48px;
-        margin-bottom: 60px;
     }
 }

@@ -4,9 +4,8 @@
     margin: 0 auto;
     padding: 20px;
 }
-
-.form{
-    margin: 0 auto 40px;
+.form-admin{
+    max-width: 100%;
 }
 .btn-logout{
     position: absolute;
@@ -16,22 +15,23 @@
 .btn-red{
     background-color: #cc3953;
 }   
-
 ul.list-tasks{
-    padding: 0;
+    padding: 10px;
     margin: 0;
     width: auto;
-}
-hr{
-    border: none;
+    background-color: #1a123d;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     border-bottom: 1px solid #38387f;
 }
-
 ul.list-tasks li{
-    padding: 10px 5px 5px;
+    padding: 20px 5px 10px 20px;
     list-style-type: none;
 }
-
+ul.list-tasks li:first-child{
+    width: 75%;
+}
 ul.list-tasks li button{
     margin: 0 5px 20px;
 }
