@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Secret To Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Secret To Do List é uma aplicação para criar listas de afazeres. É possível criar uma tarefa, atualizá-la e deletar. Não há limite para criar tarefas.
 
-In the project directory, you can run:
+Veja ele em ação aqui: [Link do Projeto](https://secret-to-do-list.vercel.app/)
 
-### `npm start`
+Elogios, críticas ou me pagar uma cerveja [entre em contato](claudioromano13@gmail.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Visão geral do projeto
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Essa aplicação foi desenvolvida com React no Front-End e Firebase no Back-End. 
 
-### `npm test`
+**Front-End**
+O Front-End da aplicação foi desenvolvido com o framework React.
+As rotas e redirecionamentos foram construídas com react-router-dom.
+**Obs:** Optei por não utilizar nenhum framework de css pela baixa complexidade da estilização.
+	
+**Back-End**
+Utiliza-se o Firestore DataBase para o CRUD: Create, Read, Update, Delete.
+A autenticação de Login com e-mail e senha é realizada no Firebase Authentication, assim como a autenticação via conta Google.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Como usar?
 
-### `npm run build`
+**1. Clone o projeto**
+<code>git clone https://github.com/claudioromanosp/secret-to-do-list.git</code>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**2. Entre no diretório criado e digite:**
+<code>npm install</code>
+para instalar as dependências
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**3. Crie um projeto no Firebase com as funcionalidades Authentication e Firestore Database**
+<code>https://firebase.google.com/products/realtime-database</code>
+  
+  **4. Crie um arquivo .env na raíz do projeto clonado e coloque a API_KEY gerada pelo Firestore**
+  <code>REACT_APP_API_KEY = cole-aqui-a-api-key-gerada</code>
+  
+  **Obs:** NÃO coloque a api_key entre aspas.
+  
+  A chave REACT_APP_API_KEY é usada no arquivo config.js que está dentro do diretório src:
+  <code>apiKey: process.env.REACT_APP_API_KEY</code>
+  
+Como a api_key é um fator de risco de segurança ela dever estar muito bem guardada e não deverá ser enviada para o servidor, git ou qualquer outro lugar, por isso ela está no arquivo .env, que está no gitignore. Se você for hospedar na Vercel, há um campo **environment variables** nas configurações. Cole essa api_key lá, blz?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**5. Para rodar o projeto digite:**
+<code>npm start</code>
 
-### `npm run eject`
+Se, por acaso, alguma coisa não der certo me chame [no e-mail](claudioromano13@gmail.com) 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**- PAZ -**
