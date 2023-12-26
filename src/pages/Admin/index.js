@@ -12,7 +12,8 @@ import {
   orderBy,
   where,
   deleteDoc,
-  doc
+  doc,
+  updateDoc
 } from "firebase/firestore";
 
 function Admin(){
@@ -20,7 +21,8 @@ function Admin(){
   const [user, setUser] = useState({})
   const [todo, setTodo] = useState([])
   const [feedback, setFeedback] = useState("Escreva a nova tarefa:")
-  const [label, setLabel] = useState("Criar uma nova tarefa");
+  const [label, setLabel] = useState("Criar uma nova tarefa")
+  const [edit, setEdit] = useState({})
 
   useEffect(() => {
     // get user data from localStorage
@@ -59,6 +61,10 @@ function Admin(){
       setFeedback("Escreva sua tarefa !");
       return;
     }
+    if(edit?.id){
+      handleUpdateTask()
+      return
+    }
      try {
        await addDoc(collection(db, "tasks"), {
          task: taskInput,
@@ -87,9 +93,25 @@ function Admin(){
     }
   }
 
-  function handleEdit(item) {
+  async function editTask (item) {
+    console.log(item)
     setTaskInput(item.task)
+    setEdit(item)
     setLabel("Salvar")
+  }
+  
+  async function handleUpdateTask(item){
+     const docRef = doc(db, "tasks", edit?.id);
+     try {
+       await updateDoc(docRef, {
+         task: taskInput,
+       });
+       setLabel("Salvar")
+       setTaskInput("");
+       setEdit({});
+     } catch (error) {
+       console.error("Erro ao deletar tarefa:", error);
+     } 
   }
 
   return (
@@ -112,7 +134,6 @@ function Admin(){
         <Button label={label} className="btn btn-large" />
       </form>
 
-
       {todo.map((item) => {
         return (
           <>
@@ -123,7 +144,11 @@ function Admin(){
                 </p>
               </li>
               <li>
-                <Button label="Editar" className="btn btn-small" onClick={() => handleEdit(item)} />
+                <Button
+                  label="Editar"
+                  className="btn btn-small"
+                  onClick={() => editTask(item)}
+                />
                 <span> | </span>{" "}
                 <Button
                   label="Excluir"
