@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home';
 import Register from "../pages/Register";
 import Admin from "../pages/Admin";
+import NotFound from '../pages/NotFound';
 import Private from './Private';
 
 function RoutesApp(){
@@ -18,6 +19,7 @@ function RoutesApp(){
             </Private>
           }
         />
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     );
 
