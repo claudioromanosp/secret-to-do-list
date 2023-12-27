@@ -88,6 +88,12 @@ button:hover{
 textarea {
     min-height: 120px;
 }
+img#loading {
+    position: absolute;
+    width: 40px;
+    left: 50%;
+    margin-left: -20px;
+}
 
 @media(min-width: 779px) {
     .form-login{

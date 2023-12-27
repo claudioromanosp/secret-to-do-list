@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import Button from "../../components/Button/";
-import Input from "../../components/Input/";
+import Loading from "../../components/Loading";
 import { FaEdit, FaRegTrashAlt, FaSignOutAlt } from "react-icons/fa";
 import { auth, db } from "../../config";
 import { signOut } from "firebase/auth";
@@ -24,6 +24,7 @@ function Admin(){
   const [feedback, setFeedback] = useState("Escreva a nova tarefa:")
   const [label, setLabel] = useState("Criar uma nova tarefa")
   const [edit, setEdit] = useState({})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // get user data from localStorage
@@ -57,9 +58,10 @@ function Admin(){
 
   async function handleRegister(e) {
     e.preventDefault();
-
+    setLoading(true)
     if(taskInput === ""){
-      setFeedback("Escreva sua tarefa !");
+      setFeedback("Escreva sua tarefa !")
+      setLoading(false)
       return;
     }
     if(edit?.id){
@@ -75,8 +77,10 @@ function Admin(){
        setFeedback("Escreva a nova tarefa:");
        setTaskInput("");
        setLabel("Criar uma nova tarefa");
+       setLoading(false);
      } catch (error) {
-      setFeedback("Não consegui criar a tarefa :(");
+      setFeedback("Não consegui criar a tarefa :(")
+      setLoading(false)
       console.error("Erro ao criar tarefa:", error);
      }
   }
@@ -86,9 +90,12 @@ function Admin(){
   }
 
   async function handleDelete(id) {
+    setLoading(true)
     try {
        await deleteDoc(doc(db, "tasks", id));
+       setLoading(false);
     } catch (error) {
+      setLoading(false)
       setFeedback("Não consegui excluir a tarefa :(");
       console.error("Erro ao deletar tarefa:", error);
     }
@@ -102,6 +109,7 @@ function Admin(){
   }
   
   async function handleUpdateTask(item){
+    setLoading(true)
      const docRef = doc(db, "tasks", edit?.id);
      try {
        await updateDoc(docRef, {
@@ -110,20 +118,22 @@ function Admin(){
        setLabel("Criar uma nova tarefa");
        setTaskInput("");
        setEdit({});
+       setLoading(false);
      } catch (error) {
+      setLoading(false);
        console.error("Erro ao deletar tarefa:", error);
      } 
   }
 
   return (
     <div className="container-admin">
-
       <Button
         className="btn btn-logout btn-red"
         label={<FaSignOutAlt />}
         onClick={handleLogOut}
       />
       <h1>Minhas Tarefas</h1>
+      {loading && <Loading />}
       <form className="form form-admin" onSubmit={handleRegister}>
         <p className="feedback">{feedback}</p>
         <textarea
@@ -149,7 +159,7 @@ function Admin(){
                   className="btn btn-small btn-first"
                   onClick={() => editTask(item)}
                 />
-                
+
                 <Button
                   label="Excluir"
                   label={<FaRegTrashAlt />}

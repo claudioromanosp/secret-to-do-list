@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/";
 import Input from "../../components/Input/";
+import Loading from "../../components/Loading";
 import { auth } from "../../config";
 import {  createUserWithEmailAndPassword } from "firebase/auth";
 
 
 function Register(){
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [feedback, setFeedback] = useState("")
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   
   async function handleRegister(e){
     e.preventDefault();
+        setLoading(true)
         if (email !== "" && password !== "") {
           try {
             await createUserWithEmailAndPassword(
@@ -23,7 +26,7 @@ function Register(){
             )
             navigate("/admin", { replace: true });
           } catch (error) {
-
+            setLoading(false)
             let errorCode = error.code;
             let errorMessage = error.message;
             console.log("código do erro: " + errorCode);
@@ -43,6 +46,7 @@ function Register(){
             }
           }
         }else {
+          setLoading(false)
           setFeedback("Cadastre seu e-mail e senha");
         }
     }
@@ -61,6 +65,8 @@ function Register(){
 return (
   <div className="container">
     <h1>Cadastre-se</h1>
+    {loading && <Loading />}
+
     <form className="form form-login" onSubmit={handleRegister}>
       <Input
         type="text"
