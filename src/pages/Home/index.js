@@ -50,11 +50,19 @@ function Home(){
          await signInWithEmailAndPassword(auth, email, password);
          navigate("/admin", { replace: true });
        } catch (error) {
-         console.error("Error:", error);
-         setFeedback("Digite seu e-mail e senha")
+         let errorCode = error.code;
+         let errorMessage = error.message;
+         console.log("código do erro: " + errorCode);
+         console.log("mensagem: " + errorMessage);
+
+         if (errorCode === "auth/invalid-credential") {
+           setFeedback("Digite seu e-mail e senha");
+         }  else if (errorCode === "auth/invalid-email") {
+           setFeedback("Digite um e-mail válido");
+         }
        }
      } else {
-      setFeedback("Digite seu e-mail e senha")
+       setFeedback("Digite seu e-mail e senha");
      }
    }
 

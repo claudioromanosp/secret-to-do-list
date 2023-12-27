@@ -23,13 +23,27 @@ function Register(){
             )
             navigate("/admin", { replace: true });
           } catch (error) {
-            console.error("Error:", error);
-            setFeedback("Digite seu e-mail e senha");
+
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log("código do erro: " + errorCode);
+            console.log("mensagem: " + errorMessage);
+
+            if (errorCode === "auth/email-already-in-use") {
+
+              setFeedback("E-mail já esta em uso");
+
+            } else if (errorCode === "auth/weak-password") {
+
+              setFeedback("Senha com no mínimo 6 caracteres");
+
+            } else if (errorCode === "auth/invalid-email") {
+              
+              setFeedback("Digite um e-mail válido");
+            }
           }
-        } else if(email !== "" && password < 6) {
-          setFeedback("Senha com no mínimo 6 caracteres");
         }else {
-          setFeedback("Digite seu e-mail e senha");
+          setFeedback("Cadastre seu e-mail e senha");
         }
     }
 
